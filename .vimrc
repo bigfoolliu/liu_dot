@@ -53,6 +53,10 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 
+" git插件
+Plugin 'airblade/vim-gitgutter'
+
+
 " 多选可视插件
 " select words with Ctrl-N (like Ctrl-d in Sublime Text/VS Code)
 " create cursors vertically with Ctrl-Down/Ctrl-Up
@@ -311,4 +315,25 @@ let g:jedi#completions_command = "<C-N>"  " ctrl+N设置快捷键自动补全
 " let g:jedi#popup_on_dot = 0  " 关闭输入点号自动弹出
 autocmd FileType python setlocal completeopt-=preview  " 关闭顶部弹出docstring
 
+
+"*****************************vim-gitgutter配置************************************
+
+"let g:gitgutter_enabled = 0  " 是否启用gitgutter
+
+set updatetime=100  " 追踪变更的时间
+
+" git的增删改在状态栏显示
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
+set statusline+=%{GitStatus()}
+
+" 设置标志列的颜色
+highlight! link SignColumn LineNr
+
+" 设置增，删，改的图标颜色
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
